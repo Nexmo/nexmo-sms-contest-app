@@ -15,7 +15,7 @@ In order to properly use this application you need to create a free [Nexmo accou
 
 Next you need to create the database schema by running `rake db:migrate` from your command line, and also installing all the dependencies outlined in the [Gemfile](Gemfile) by running `bundle install`.
 
-Lastly, you need to provide your API credentials for Nexmo and your Nexmo number in your application. You can do so by executing `EDITOR="code --wait" rails credentials:edit` from your command line. Your credentials are put in the following format:
+Then, you need to provide your API credentials for Nexmo and your Nexmo number in your application. You can do so by executing `EDITOR="code --wait" rails credentials:edit` from your command line. Your credentials are put in the following format:
 
 ```ruby
 nexmo:
@@ -23,6 +23,8 @@ nexmo:
   api_secret:
   nexmo_number:
 ```
+
+Lastly, run the Nexmo generator to create your Nexmo client instance by running `rails generate nexmo_initializer` from the command line.
 
 Once that is finished you can start your Rails server by running `rails s` from your terminal. 
 
