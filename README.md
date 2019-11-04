@@ -48,6 +48,8 @@ First, you must set your Rails master key as a Heroku environment variable. You 
 
 You can do so by running `heroku run EDITOR="code --wait" rails credentials:edit` and following the instructions in the [Installation and Usage](#installation-and-usage) section above for creating your credentials. When you close your editor, your API credentials will be stored in the Rails Credentials of the Heroku instance of your application.
 
+Lastly, initialize your Nexmo client by running `heroku run rails generate nexmo_initializer` from your command line.
+
 ## Administration
 
 The app utilizes [Active Admin](https://github.com/activeadmin/activeadmin) to provide administrative functionality. To use the administrative tooling in order to view contest entries do the following:
