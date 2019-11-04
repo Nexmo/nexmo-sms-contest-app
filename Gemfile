@@ -25,6 +25,9 @@ gem 'jbuilder', '~> 2.7'
 # Nexmo Rails integration
 gem 'nexmo_rails'
 
+# Manage .env file
+gem 'dotenv-rails'
+
 # Active Admin
 gem 'activeadmin'
 gem 'devise'

@@ -316,6 +316,7 @@ DEPENDENCIES
   cancancan
   capybara (>= 2.15)
   devise
+  dotenv-rails
   draper
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
