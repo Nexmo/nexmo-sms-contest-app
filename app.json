@@ -1,0 +1,14 @@
+{
+  "name": "Nexmo SMS Contest App",
+  "description": "Run a contest by SMS",
+  "keywords": ["rails", "nexmo", "ruby"],
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate && bundle exec rake g nexmo_initializer && bundle exec rails g active_admin:install && bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec rails generate active_admin:resource Message"
+  },
+  "env": {
+    "RAILS_MASTER_KEY": {
+      "description": "Provide a Credentials master key for Rails credentials",
+      "value": "abcd1234"
+    }
+  }
+}
