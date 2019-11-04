@@ -4,6 +4,7 @@ An app to run booth contests by SMS.
 
 * [Dependencies](#requirements)
 * [Installation and Usage](#installation-and-usage)
+* [Administration](#administration)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -34,6 +35,32 @@ Text messages are to be sent in the following format to be considered valid (the
 
 ```
 {name} -- {twitter handle} -- {email} -- {message}
+```
+
+## Administration
+
+The app utilizes [Active Admin](https://github.com/activeadmin/activeadmin) to provide administrative functionality. To use the administrative tooling in order to view contest entries do the following:
+
+After running `bundle install` as outlined in the Installation instructions, execute the following:
+
+* `rails generate active_admin:install`
+* `rake db:migrate`
+* `rake db:seed`
+* `rails generate active_admin:resource Message`
+
+Doing the above will create the Active Admin infrastructure and provide you with an administrative account with a login of `admin@example.com` and a password of `changemerightaway`. You can navigate to `https://localhost:3000/admin/` and sign in with those credentials to access the administrative section.
+
+It is recommended to change the password and the login email for this administrative account. The simplest way to do so is to go into the Rails Console and update it there:
+
+```bash
+$ rails c
+```
+
+```ruby
+irb(main)::001:0> admin = AdminUser.find_by_email("admin@example.com")
+irb(main)::002:0> admin.email = "PUT NEW EMAIL ADDRESS HERE"
+irb(main)::003:0> admin.password = "PUT NEW PASSWROD HERE"
+irb(main)::004:0> admin.save
 ```
 
 ## Contributing
