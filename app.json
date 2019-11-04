@@ -3,7 +3,7 @@
   "description": "Run a contest by SMS",
   "keywords": ["rails", "nexmo", "ruby"],
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate && bundle exec rails g active_admin:install && bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec rails generate active_admin:resource Message && bundle exec rails generate nexmo_initializer"
+    "postdeploy": "bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec rails generate nexmo_initializer"
   },
   "env": {
     "NEXMO_API_KEY": {
