@@ -11,14 +11,20 @@ class MessageController < ApplicationController
       message: data[:message]
     )
     if @message.save
-      Nexmo.sms.send(
-        from: Rails.application.credentials.nexmo[:nexmo_number],
-        to: @message.phone_number,
-        text: @message.success_message
-      )
+      send_sms(@message.phone_number, @message.success_message)
     else
       puts "Message not saved successfully."
     end
+  end
+
+  private
+
+  def send_sms(recipient, text)
+    Nexmo.sms.send(
+      from: Rails.application.credentials.nexmo[:nexmo_number],
+      to: recipient,
+      text: text      
+    )
   end
 
 end
