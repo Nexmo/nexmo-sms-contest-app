@@ -12,18 +12,28 @@ class Message < ApplicationRecord
     phone_number = parsed_message[0].split('=')[1].gsub('&to', '')
     parsed_message_contents = parsed_message[1].split('+--+')
     parsed_message_contents = twitter_present?(parsed_message_contents)
+    parsed_message_contents = clean_data(parsed_message_contents)
     assign_data(parsed_message_contents, phone_number)
   end
 
   def self.assign_data(contents, phone_number)
     data = {}
-    data[:name] = contents[0].gsub('+', ' ')
-    data[:twitter] = contents[1].sub('%C2%A1', '@')
-    data[:email] = contents[2].sub('%C2%A1', '@')
-    data[:message] = contents[3].split('&')[0].gsub('+', ' ')
+    data[:name] = contents[0]
+    data[:twitter] = contents[1]
+    data[:email] = contents[2]
+    data[:message] = contents[3]
     data[:phone_number] = phone_number
     
     data
+  end
+
+  def self.clean_data(contents)
+    contents[0] = contents[0].gsub('+', ' ')
+    contents[1] = contents[1].sub('%C2%A1', '@')
+    contents[2] = contents[2].sub('%C2%A1', '@')
+    contents[3] = contents[3].split('&')[0].gsub('+', ' ')
+
+    contents
   end
 
   def self.twitter_present?(data)
