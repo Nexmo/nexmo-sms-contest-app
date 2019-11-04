@@ -9,14 +9,19 @@ class Message < ApplicationRecord
 
   def self.parse_sms(params)
     parsed_message = params.split('&text=')
+    phone_number = parsed_message[0].split('=')[1].gsub('&to', '')
     parsed_message_contents = parsed_message[1].split('+--+')
-    parsed_message_contents = Message.twitter_present?(parsed_message_contents)
+    parsed_message_contents = twitter_present?(parsed_message_contents)
+    assign_data(parsed_message_contents, phone_number)
+  end
+
+  def self.assign_data(contents, phone_number)
     data = {}
-    data[:name] = parsed_message_contents[0].gsub('+', ' ')
-    data[:twitter] = parsed_message_contents[1].sub('%C2%A1', '@')
-    data[:email] = parsed_message_contents[2].sub('%C2%A1', '@')
-    data[:message] = parsed_message_contents[3].split('&')[0].gsub('+', ' ')
-    data[:phone_number] = parsed_message[0].split('=')[1].gsub('&to', '')
+    data[:name] = contents[0].gsub('+', ' ')
+    data[:twitter] = contents[1].sub('%C2%A1', '@')
+    data[:email] = contents[2].sub('%C2%A1', '@')
+    data[:message] = contents[3].split('&')[0].gsub('+', ' ')
+    data[:phone_number] = phone_number
     
     data
   end
