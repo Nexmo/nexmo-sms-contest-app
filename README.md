@@ -30,7 +30,7 @@ Once that is finished you can start your Rails server by running `rails s` from 
 
 You can now text your application by sending a message to your Nexmo number.
 
-Text messages are to be sent in the following format to be considered valid:
+Text messages are to be sent in the following format to be considered valid (the Twitter handle field is optional):
 
 ```
 {name} -- {twitter handle} -- {email} -- {message}
