@@ -6,6 +6,7 @@ An app to run booth contests by SMS.
 
 * [Dependencies](#requirements)
 * [Installation and Usage](#installation-and-usage)
+    * [Deploying to Heroku](#deploying-to-heroku)
 * [Administration](#administration)
 * [Contributing](#contributing)
 * [License](#license)
@@ -38,6 +39,14 @@ Text messages are to be sent in the following format to be considered valid (the
 ```
 {name} -- {twitter handle} -- {email} -- {message}
 ```
+
+### Deploying to Heroku
+
+You can deploy the application directly from this GitHub repository by clicking on the `Deploy to Heroku` button at the top of this README. Once you do that you still must set your Rails credentials in Heroku. 
+
+First, you must set your Rails master key as a Heroku environment variable. You can do so by running `heroku config:set RAILS_MASTER_KEY=<your-master-key>` from your command line, replacing `<your-master-key>` with the master key you would like to use. After doing that you are ready to add your API credentials.
+
+You can do so by running `heroku run EDITOR="code --wait" rails credentials:edit` and following the instructions in the [Installation and Usage](#installation-and-usage) section above for creating your credentials. When you close your editor, your API credentials will be stored in the Rails Credentials of the Heroku instance of your application.
 
 ## Administration
 

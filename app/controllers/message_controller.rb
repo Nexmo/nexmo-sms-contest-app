@@ -1,4 +1,3 @@
-require 'pry'
 class MessageController < ApplicationController
 
   def create
