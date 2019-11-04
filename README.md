@@ -1,5 +1,7 @@
 # Nexmo SMS Contest App
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 An app to run booth contests by SMS.
 
 * [Dependencies](#requirements)
