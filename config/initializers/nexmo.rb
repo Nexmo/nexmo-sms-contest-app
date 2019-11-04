@@ -1,7 +1,7 @@
 Nexmo.setup do |config|
-  config.api_key = Rails.application.credentials.nexmo[:api_key],
-  config.api_secret = Rails.application.credentials.nexmo[:api_secret],
-  config.signature_secret = Rails.application.credentials.nexmo[:api_signature],
-  config.application_id = Rails.application.credentials.nexmo[:application_id],
-  config.private_key = Rails.application.credentials.nexmo[:private_key]
+  config.api_key = ENV['NEXMO_API_KEY']
+  config.api_secret = ENV['NEXMO_API_SECRET']
+  config.signature_secret = ENV['NEXMO_API_SIGNATURE']
+  config.application_id = ENV['NEXMO_APPLICATION_ID']
+  config.private_key = ENV['NEXMO_PRIVATE_KEY']
 end

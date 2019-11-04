@@ -13,19 +13,24 @@ An app to run booth contests by SMS.
 
 ## Dependencies
 
+* [PostgreSQL](http://www.postgresql.org/)
+* [dotenv](https://github.com/bkeepers/dotenv)
+* [nexmo_rails](https://github.com/Nexmo/nexmo-rails)
+
 ## Installation and Usage
 
 In order to properly use this application you need to create a free [Nexmo account](https://dashboard.nexmo.com), and provision a Nexmo virtual number. Once you have done so, you then need to assign an inbound SMS webhook URL to that number in your Nexmo Dashboard. This webhook URL must be externally accessible. Many people find using [ngrok](https://ngrok.io) helpful for making their local server externally available during development. The application has the route `/webhooks/receive` already defined in [routes.rb](/config/routes.rb) configuration, as such it is easiest to provide that path with your externally accessible URL as your webhook to receive text messages.
 
 Next you need to create the database schema by running `rake db:migrate` from your command line, and also installing all the dependencies outlined in the [Gemfile](Gemfile) by running `bundle install`.
 
-Then, you need to provide your API credentials for Nexmo and your Nexmo number in your application. You can do so by executing `EDITOR="code --wait" rails credentials:edit` from your command line. Your credentials are put in the following format:
+Then, you need to provide your API credentials for Nexmo and your Nexmo number in your application. Your credentials are stored in a `.env` file in the root folder of your project. You can rename the sample [.env.sample](.env.sample) file to `.env` and input your values for the keys or create a new `.env` file, whichever you prefer. 
+
+The credentials you must provide are your Nexmo API Key, API Secret and your Nexmo provisioned phone number. Your credentials are stored in the following manner:
 
 ```ruby
-nexmo:
-  api_key:
-  api_secret:
-  nexmo_number:
+NEXMO_API_KEY=
+NEXMO_API_SECRET=
+NEXMO_NUMBER=
 ```
 
 Lastly, run the Nexmo generator to create your Nexmo client instance by running `rails generate nexmo_initializer` from the command line.
@@ -42,13 +47,9 @@ Text messages are to be sent in the following format to be considered valid (the
 
 ### Deploying to Heroku
 
-You can deploy the application directly from this GitHub repository by clicking on the `Deploy to Heroku` button at the top of this README. Once you do that you still must set your Rails credentials in Heroku. 
+You can deploy the application directly from this GitHub repository by clicking on the `Deploy to Heroku` button at the top of this README. Once you do that you still must set your Nexmo API credentials and information in Heroku. You can do so from with your Heroku Dashboard's application settings by [managing the config vars](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard) for your Nexmo SMS Contest app. You will need to add the three environment variables listed above in the [Installation and Usage](#installation-and-usage) section of this README: `NEXMO_API_KEY`, `NEXMO_API_SECRET`, `NEXMO_NUMBER`. 
 
-First, you must set your Rails master key as a Heroku environment variable. You can do so by running `heroku config:set RAILS_MASTER_KEY=<your-master-key>` from your command line, replacing `<your-master-key>` with the master key you would like to use. After doing that you are ready to add your API credentials.
-
-You can do so by running `heroku run EDITOR="code --wait" rails credentials:edit` and following the instructions in the [Installation and Usage](#installation-and-usage) section above for creating your credentials. When you close your editor, your API credentials will be stored in the Rails Credentials of the Heroku instance of your application.
-
-Lastly, initialize your Nexmo client by running `heroku run rails generate nexmo_initializer` from your command line.
+Lastly, initialize your Nexmo client by running `rails generate nexmo_initializer` from the [Heroku Console](https://devcenter.heroku.com/articles/heroku-dashboard#application-overview) also accessed from with your Heroku Dashboard.
 
 ## Administration
 

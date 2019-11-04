@@ -20,7 +20,7 @@ class MessageController < ApplicationController
 
   def send_sms(recipient, text)
     Nexmo.sms.send(
-      from: Rails.application.credentials.nexmo[:nexmo_number],
+      from: ENV['NEXMO_NUMBER'],
       to: recipient,
       text: text      
     )
