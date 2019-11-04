@@ -22,7 +22,15 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Nexmo Rails integration
 gem 'nexmo_rails'
+
+# Active Admin
+gem 'activeadmin'
+gem 'devise'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
