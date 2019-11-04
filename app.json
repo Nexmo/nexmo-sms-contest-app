@@ -3,6 +3,20 @@
   "description": "Run a contest by SMS",
   "keywords": ["rails", "nexmo", "ruby"],
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate && bundle exec rails g active_admin:install && bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec rails generate active_admin:resource Message"
+    "postdeploy": "bundle exec rake db:migrate && bundle exec rails g active_admin:install && bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec rails generate active_admin:resource Message && bundle exec rails generate nexmo_initializer"
+  },
+  "env": {
+    "NEXMO_API_KEY": {
+      "description": "Please provide your Nexmo API key",
+      "value": "api key goes here"
+    },
+    "NEXMO_API_SECRET": {
+      "description": "Please provide your Nexmo API secret",
+      "value": "api secret goes here"
+    },
+    "NEXMO_NUMBER": {
+      "description": "Please provide your Nexmo provisioned phone number",
+      "value": "phone number goes here"
+    }
   }
 }

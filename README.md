@@ -47,9 +47,11 @@ Text messages are to be sent in the following format to be considered valid (the
 
 ### Deploying to Heroku
 
-You can deploy the application directly from this GitHub repository by clicking on the `Deploy to Heroku` button at the top of this README. Once you do that you still must set your Nexmo API credentials and information in Heroku. You can do so from with your Heroku Dashboard's application settings by [managing the config vars](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard) for your Nexmo SMS Contest app. You will need to add the three environment variables listed above in the [Installation and Usage](#installation-and-usage) section of this README: `NEXMO_API_KEY`, `NEXMO_API_SECRET`, `NEXMO_NUMBER`. 
+You can deploy the application directly from this GitHub repository by clicking on the `Deploy to Heroku` button at the top of this README. Once you do that you still must set your Nexmo API credentials and information in Heroku. You can either do so at the time you are initializing your application after you have the clicked the `Deploy to Heroku` button above, or after from within the Heroku Dashboard.
 
-Lastly, initialize your Nexmo client by running `rails generate nexmo_initializer` from the [Heroku Console](https://devcenter.heroku.com/articles/heroku-dashboard#application-overview) also accessed from with your Heroku Dashboard.
+After you have clicked the above `Deploy to Heroku` button, you will see three `config vars` in the Heroku deployment settings. Add your Nexmo API credentials and Nexmo phone number in the appropriate value box for each key before clicking the final `Deploy app` button. This will ensure your application is deployed to Heroku with your Nexmo API information.
+
+Alternatively, you can do so from with your Heroku Dashboard's application settings by [managing the config vars](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard) for your Nexmo SMS Contest app after deploying. You will need to add the three environment variables listed above in the [Installation and Usage](#installation-and-usage) section of this README: `NEXMO_API_KEY`, `NEXMO_API_SECRET`, `NEXMO_NUMBER`. 
 
 ## Administration
 
