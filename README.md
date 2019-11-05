@@ -53,9 +53,19 @@ After you have clicked the above `Deploy to Heroku` button, you will see three `
 
 Alternatively, you can do so from with your Heroku Dashboard's application settings by [managing the config vars](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard) for your Nexmo SMS Contest app after deploying. You will need to add the three environment variables listed above in the [Installation and Usage](#installation-and-usage) section of this README: `NEXMO_API_KEY`, `NEXMO_API_SECRET`, `NEXMO_NUMBER`. 
 
+Once you have deployed to Heroku, you must change your inbound SMS webhook URL in your [Nexmo Dashboard](https://dashboard.nexmo.com) to your new Heroku URL.
+
 ## Administration
 
 The app utilizes [Active Admin](https://github.com/activeadmin/activeadmin) to provide administrative functionality. To use the administrative tooling in order to view contest entries do the following:
+
+### From a Clone of this Repository
+
+If you cloned this repository directly, you only need to run `rake db:seed` from your command line to create your administrative user account, and you can skip to the [Administrative Account Credentials](#administrative-account-credentials) section of this README.
+
+### From a New Build
+
+If you chose to create your application locally as a new Rails build you need to follow these instructions to access the administrative backend.
 
 After running `bundle install` as outlined in the Installation instructions, execute the following:
 
@@ -65,6 +75,8 @@ After running `bundle install` as outlined in the Installation instructions, exe
 * `rails generate active_admin:resource Message`
 
 Doing the above will create the Active Admin infrastructure and provide you with an administrative account with a login of `admin@example.com` and a password of `changemerightaway`. You can navigate to `https://localhost:3000/admin/` and sign in with those credentials to access the administrative section.
+
+### Administrative Account Credentials
 
 It is recommended to change the password and the login email for this administrative account. The simplest way to do so is to go into the Rails Console and update it there:
 
