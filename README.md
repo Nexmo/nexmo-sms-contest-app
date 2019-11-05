@@ -8,6 +8,9 @@ An app to run booth contests by SMS.
 * [Installation and Usage](#installation-and-usage)
     * [Deploying to Heroku](#deploying-to-heroku)
 * [Administration](#administration)
+    * [From a Clone of this Repository](#from-a-clone-of-this-repository)
+    * [From a New Build](#from-a-new-build)
+    * [Administrative Account Credentials](#administrative-account-credentials)
 * [Contributing](#contributing)
 * [License](#license)
 
