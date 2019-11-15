@@ -33,7 +33,7 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   def test_parse_sms_class_method_with_one_word_name
-    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+--+Twitter+--+test%C2%A1test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
+    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+--+Twitter+--+test%40test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
     expected_hash = {
       :name => 'Joe', 
       :twitter => 'Twitter', 
@@ -46,7 +46,7 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   def test_parse_sms_class_method_with_two_word_name
-    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+Twitter+--+test%C2%A1test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
+    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+Twitter+--+test%40test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
     expected_hash = {
       :name => 'Joe Schmoe', 
       :twitter => 'Twitter', 
@@ -59,7 +59,7 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   def test_parse_sms_class_method_with_twitter_no_at_symbol
-    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+Twitter+--+test%C2%A1test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
+    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+Twitter+--+test%40test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
     expected_hash = {
       :name => 'Joe Schmoe', 
       :twitter => 'Twitter', 
@@ -72,7 +72,7 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   def test_parse_sms_class_method_with_twitter_at_symbol
-    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+%C2%A1Twitter+--+test%C2%A1test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
+    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+%40Twitter+--+test%40test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
     expected_hash = {
       :name => 'Joe Schmoe', 
       :twitter => '@Twitter', 
@@ -85,7 +85,7 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   def test_parse_sms_class_method_with_no_twitter_value
-    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+test%C2%A1test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
+    params = "msisdn=972587889999&to=972587889999&messageId=160000028ACCEB69&text=Joe+Schmoe+--+test%40test.com+--+this+is+a+great+idea&type=text&keyword=JOE&api-key=999999&message-timestamp=2019-11-01+13%3A02%3A29"
     expected_hash = {
       :name => 'Joe Schmoe', 
       :twitter => '', 
