@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Message < ApplicationRecord
   include ActiveModel::Validations
 
@@ -7,10 +9,37 @@ class Message < ApplicationRecord
   validates :phone_number, presence: true
   validates_uniqueness_of :phone_number
 
-  def self.parse_sms(params)
-    decoded_message = CGI::unescape(params)
-    parsed_message = decoded_message.split('&text=')
-    phone_number = parsed_message[0].split('=')[1].gsub('&to', '')
+  def self.direct_data(params)
+    escaped_data = decode_data(params)
+
+    if escaped_data.include?('&concat=true')
+      parse_concat_sms(escaped_data)
+    else
+      parse_sms(escaped_data)
+    end
+  end
+
+  def self.decode_data(params)
+    CGI.unescape(params)
+  end
+
+  def self.parse_phone_number(parsed_message)
+    parsed_message[0].split('=')[1].gsub('&to', '')
+  end
+
+  def self.parse_concat_sms(parsed_message)
+    phone_number = parse_phone_number(parsed_message)
+    parsed_message = parsed_message.split('&text=')
+    concat_string = parsed_message[/concat-ref=[0-9](.*?)&text=/m, 1]
+    parsed_message_contents = parsed_message[1].split('&')[0].split(' -- ')
+    parsed_message_contents = twitter_present?(parsed_message_contents)
+    parsed_message_contents[3] = "#{concat_string}: #{parsed_message_contents[3]}"
+    assign_data(parsed_message_contents, phone_number)
+  end
+
+  def self.parse_sms(parsed_message)
+    phone_number = parse_phone_number(parsed_message)
+    parsed_message = parsed_message.split('&text=')
     parsed_message_contents = parsed_message[1].split('&')[0].split(' -- ')
     parsed_message_contents = twitter_present?(parsed_message_contents)
     assign_data(parsed_message_contents, phone_number)
@@ -23,14 +52,13 @@ class Message < ApplicationRecord
     data[:email] = contents[2]
     data[:message] = contents[3]
     data[:phone_number] = phone_number
-    
+
     data
   end
 
-
   def self.twitter_present?(data)
     if data[1].match?(URI::MailTo::EMAIL_REGEXP)
-      data[3] = data[2] 
+      data[3] = data[2]
       data[2] = data[1]
       data[1] = ''
     end
@@ -38,11 +66,11 @@ class Message < ApplicationRecord
   end
 
   def success_message
-  <<~HEREDOC
-  Thank you for entering the Nexmo #{event_name} contest!
-  All entries will be evaluated and the winner will be notified by the
-  #{end_of_contest_time}. Good luck!
-  HEREDOC
+    <<~HEREDOC
+      Thank you for entering the Nexmo #{event_name} contest!
+      All entries will be evaluated and the winner will be notified by the
+      #{end_of_contest_time}. Good luck!
+    HEREDOC
   end
 
   def event_name
