@@ -1,14 +1,20 @@
 class MessageController < ApplicationController
-
   def create
-    data = Message.parse_sms(request.env['QUERY_STRING'])
-    @message = Message.new(
-      name: data[:name], 
-      email: data[:email], 
-      phone_number: data[:phone_number], 
-      twitter: data[:twitter], 
-      message: data[:message]
+    data = Message.direct_data(request.env['QUERY_STRING'])
+    @message = Message.find_or_initialize_by(
+      message_id: data[:message_id]
     )
+
+    if @message.persisted?
+      @message.message = "#{@message.message} #{data[:message]}"
+    else
+      @message.name = data[:name]
+      @message.email = data[:email]
+      @message.twitter = data[:twitter]
+      @message.message = data[:message]
+      @message.phone_number = data[:phone_number]
+    end
+
     if @message.save
       send_sms(@message.phone_number, @message.success_message)
     else
