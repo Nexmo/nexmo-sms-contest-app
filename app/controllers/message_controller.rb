@@ -2,7 +2,7 @@ class MessageController < ApplicationController
   def create
     data = Message.direct_data(request.env['QUERY_STRING'])
     @message = Message.find_or_initialize_by(
-      phone_number: data[:phone_number]
+      message_id: data[:message_id]
     )
 
     if @message.persisted?
@@ -12,6 +12,7 @@ class MessageController < ApplicationController
       @message.email = data[:email]
       @message.twitter = data[:twitter]
       @message.message = data[:message]
+      @message.phone_number = data[:phone_number]
     end
 
     if @message.save
