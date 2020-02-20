@@ -2,18 +2,32 @@
 
 class Message < ApplicationRecord
   include ActiveModel::Validations
-
-  validates :name, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, on: :create }
+  
   validates :message, presence: true
-  validates :phone_number, presence: true
+  
   validates :message_id, presence: true
   validates_uniqueness_of :message_id
 
+
   def self.direct_data(params)
     escaped_data = decode_data(params)
+    p = CGI.parse(params)
+    data = {}
     
-    parse_sms(escaped_data)
+    data[:phone_number]=p["msisdn"]
+
+    data[:message_id] = p["messageId"]
+    data[:message] = p["text"]
+    
+    if p.key?("concat")
+      if p["concat"]
+        data[:concat] = true
+        data[:concat_ref] = p["concat-ref"]
+        data[:concat_part]=p["concat-part"]
+        data[:concat_total]=p["concat-total"]
+      end    
+    end
+    data
   end
 
   def self.decode_data(params)
@@ -68,10 +82,10 @@ class Message < ApplicationRecord
   end
 
   def event_name
-    'RubyConf 2019'
+    'DevNexus 2020'
   end
 
   def end_of_contest_time
-    'afternoon break on November 20th'
+    'Close Conference Raffle on February 21rst'
   end
 end

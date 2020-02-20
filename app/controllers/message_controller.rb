@@ -8,15 +8,19 @@ class MessageController < ApplicationController
     if @message.persisted?
       @message.message = "#{@message.message} #{data[:message]}"
     else
-      @message.name = data[:name]
-      @message.email = data[:email]
-      @message.twitter = data[:twitter]
       @message.message = data[:message]
       @message.phone_number = data[:phone_number]
+      if data[:concat]
+        @message.concat = data[:concat]
+        @message.concat_ref = data[:concat_ref]          
+        @message.concat_part = data[:concat_part]          
+        @message.concat_total = data[:concat_total]        
+      else
+      end
     end
 
-    if @message.save
-      send_sms(@message.phone_number, @message.success_message)
+    if @message.save      
+      send_sms(data[:phone_number], @message.success_message)
     else
       puts "Message not saved successfully."
     end
