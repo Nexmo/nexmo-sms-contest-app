@@ -86,6 +86,6 @@ class Message < ApplicationRecord
   end
 
   def end_of_contest_time
-    'Close Conference Raffle on February 21rst'
+    'Close Conference Raffle on February 21st'
   end
 end
