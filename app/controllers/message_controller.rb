@@ -20,7 +20,7 @@ class MessageController < ApplicationController
     end
 
     if @message.save      
-      send_sms(data[:phone_number], @message.success_message)
+      send_sms(@message.phone_number, @message.success_message)
     else
       puts "Message not saved successfully."
     end

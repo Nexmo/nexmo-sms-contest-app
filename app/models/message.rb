@@ -14,17 +14,17 @@ class Message < ApplicationRecord
     p = CGI.parse(params)
     data = {}
     
-    data[:phone_number]=p["msisdn"]
+    data[:phone_number]=p["msisdn"][0]
 
-    data[:message_id] = p["messageId"]
-    data[:message] = p["text"]
+    data[:message_id] = p["messageId"][0]
+    data[:message] = p["text"][0]
     
     if p.key?("concat")
       if p["concat"]
         data[:concat] = true
-        data[:concat_ref] = p["concat-ref"]
-        data[:concat_part]=p["concat-part"]
-        data[:concat_total]=p["concat-total"]
+        data[:concat_ref] = p["concat-ref"][0]
+        data[:concat_part]=p["concat-part"][0]
+        data[:concat_total]=p["concat-total"][0]
       end    
     end
     data
