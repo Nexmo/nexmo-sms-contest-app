@@ -75,9 +75,7 @@ class Message < ApplicationRecord
 
   def success_message
     <<~HEREDOC
-      Thank you for entering the Nexmo #{event_name} contest!
-      All entries will be evaluated and the winner will be notified by the
-      #{end_of_contest_time}. Good luck!
+      Thank you for contatacing us, unfortunately the raffle has closed. You can still use coupon code DEVNEX20 by March 20th to get 10 euro worth of credit.
     HEREDOC
   end
 
