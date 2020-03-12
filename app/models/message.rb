@@ -2,18 +2,32 @@
 
 class Message < ApplicationRecord
   include ActiveModel::Validations
-
-  validates :name, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, on: :create }
+  
   validates :message, presence: true
-  validates :phone_number, presence: true
+  
   validates :message_id, presence: true
   validates_uniqueness_of :message_id
 
+
   def self.direct_data(params)
     escaped_data = decode_data(params)
+    parsed_params = CGI.parse(params)
+    data = {}
     
-    parse_sms(escaped_data)
+    data[:phone_number] = parsed_params["msisdn"][0]
+
+    data[:message_id] = parsed_params["messageId"][0]
+    data[:message] = parsed_params["text"][0]
+    
+    if parsed_params.key?("concat")
+      if parsed_params["concat"]
+        data[:concat] = true
+        data[:concat_ref] = parsed_params["concat-ref"][0]
+        data[:concat_part] = parsed_params["concat-part"][0]
+        data[:concat_total] = parsed_params["concat-total"][0]
+      end    
+    end
+    data
   end
 
   def self.decode_data(params)
@@ -61,17 +75,23 @@ class Message < ApplicationRecord
 
   def success_message
     <<~HEREDOC
-      Thank you for entering the Nexmo #{event_name} contest!
-      All entries will be evaluated and the winner will be notified by the
-      #{end_of_contest_time}. Good luck!
+      Thank you for contatacing us, unfortunately the raffle has closed. You can still use coupon code #{coupon_code} by #{end_of_coupon_code_date} to get 10 euro worth of credit.
     HEREDOC
   end
 
   def event_name
-    'RubyConf 2019'
+    'DevNexus 2020'
   end
 
   def end_of_contest_time
-    'afternoon break on November 20th'
+    'March 20th'
+  end
+    
+  def coupon_code
+    'DEVNEX20'
+  end
+  
+  def end_of_coupon_code_date
+    'March 20th'
   end
 end

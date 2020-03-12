@@ -5,12 +5,12 @@ ActiveAdmin.register Message do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :name, :phone_number, :twitter, :email, :message
+  # permit_params :name, :phone_number, :twitter, :email, :message, :message_id, :concat, :concat_ref, :concat_total, :concat_part
   #
   # or
   #
   # permit_params do
-  #   permitted = [:name, :phone_number, :twitter, :email, :message]
+  #   permitted = [:name, :phone_number, :twitter, :email, :message, :message_id, :concat, :concat_ref, :concat_total, :concat_part]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
