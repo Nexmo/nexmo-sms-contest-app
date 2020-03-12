@@ -42,14 +42,6 @@ Once that is finished you can start your Rails server by running `rails s` from 
 
 You can now text your application by sending a message to your Nexmo number.
 
-Text messages are to be sent in the following format to be considered valid (the Twitter handle field is optional):
-
-```
-{name} -- {twitter handle} -- {email} -- {message}
-```
-
-SMS Concatenation for multiple SMS messages works differently by region and even by different carriers in the same region. As such it is better if contest entries are kept short. The `{message}` segment of the text should not be longer than a sentence.
-
 ### Deploying to Heroku
 
 You can deploy the application directly from this GitHub repository by clicking on the `Deploy to Heroku` button at the top of this README. Once you do that you still must set your Nexmo API credentials and information in Heroku. You can either do so at the time you are initializing your application after you have the clicked the `Deploy to Heroku` button above, or after from within the Heroku Dashboard.
