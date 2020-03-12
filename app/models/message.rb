@@ -14,7 +14,7 @@ class Message < ApplicationRecord
     parsed_params = CGI.parse(params)
     data = {}
     
-    data[:phone_number]=parsed_params["msisdn"][0]
+    data[:phone_number] = parsed_params["msisdn"][0]
 
     data[:message_id] = parsed_params["messageId"][0]
     data[:message] = parsed_params["text"][0]
