@@ -11,7 +11,7 @@ class Message < ApplicationRecord
 
   def self.direct_data(params)
     escaped_data = decode_data(params)
-    parsed_params = CGI.parse(params)
+    parsed_params = CGI.parse(escaped_data)
     data = {}
     
     data[:phone_number] = parsed_params["msisdn"][0]
